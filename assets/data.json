@@ -1,0 +1,30 @@
+{
+    "messages": [
+        {
+            "id": 1,
+            "author": "Susi",
+            "message": "Hallo wie geht's?"
+        },
+        {
+            "id": 2,
+            "author": "Mike",
+            "message": "Gut geht's?"
+        }
+        ,
+        {
+            "id": 3,
+            "author": "Susi",
+            "message": "Schön"
+        }
+    ],
+    "users": [
+        {
+            "id": 1,
+            "name": "Susi"
+        },
+        {
+            "id": 2,
+            "name": "Mike"
+        }
+    ]
+}
