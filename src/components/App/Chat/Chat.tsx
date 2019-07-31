@@ -1,46 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ChatOutput from './ChatOutput/ChatOutput';
 import { ChatMessageEntity } from '../../../domain/chat/ChatMessageEntity';
 import chatMessageService, { Subscription, OnChatMessagesUpdated } from '../../../domain/chat/ChatMessageService';
 import ChatInput, { OnChatMessageSendTriggered } from './ChatInput/ChatInput';
 
-export interface ChatProps {
 
-}
+export const Chat: React.FC = () => {
 
-interface ChatState {
-    chatMessages: ChatMessageEntity[];
-    subscription: Subscription | undefined;
-}
 
-export class Chat extends React.Component<ChatProps, ChatState> {
 
-    constructor(props: ChatProps) {
-        super(props);
-        this.state = {
-            chatMessages: [],
-            subscription: undefined
-        }
-    }
+    const [ chatMessages, setChatMessages ] = useState<ChatMessageEntity[]>([]);
+    const [ subscription, setSubscription] = useState<Subscription | undefined>(undefined);
 
-    onChatMessagesUpdated: OnChatMessagesUpdated = (chatMessages: ChatMessageEntity[]) => {
-        this.setState({
-            chatMessages
-        });
+    const onChatMessagesUpdated: OnChatMessagesUpdated = (chatMessages: ChatMessageEntity[]) => {
+        setChatMessages(chatMessages);
     };
 
-    componentDidMount = () => {
-        const subscription = chatMessageService.subscribe(this.onChatMessagesUpdated);
-        this.setState({
-            subscription
-        });
-    };
+    useEffect(() => {
+        const newSubscription = chatMessageService.subscribe(onChatMessagesUpdated);
+        setSubscription(newSubscription);
+        return () => { // cleanup
+            chatMessageService.unsubscribe(subscription!);
+        };
+        // eslint-disable-next-line
+    }, []);
 
-    componentWillUnmount = () => {
-        chatMessageService.unsubscribe(this.state.subscription!);
-    };
-
-    onChatMessageSendTriggered: OnChatMessageSendTriggered = (message: string) => {
+    const onChatMessageSendTriggered: OnChatMessageSendTriggered = (message: string) => {
         chatMessageService.sendChatMessage({
             message,
             author: 'Mike'
@@ -49,15 +34,12 @@ export class Chat extends React.Component<ChatProps, ChatState> {
         });
     };
 
-    render() {
-        return (<div className="chat container">
+    return (<div className="chat container"> 
             <h2>Chat</h2>
-            <div className="row">
-                <ChatOutput chatMessages={this.state.chatMessages} />
-            </div>
-            <div className="row">
-                <ChatInput onChatMessageSendTriggered={this.onChatMessageSendTriggered} />
+            <div className="d-flex flex-column p-2">
+                <ChatOutput chatMessages={chatMessages} />
+                <ChatInput onChatMessageSendTriggered={onChatMessageSendTriggered} />                
             </div>
         </div>);
-    }
 }
+

@@ -16,12 +16,6 @@
       "message": "Schön"
     },
     {
-      "id": 4
-    },
-    {
-      "id": 5
-    },
-    {
       "message": "test",
       "author": "Mike",
       "id": 6
@@ -35,6 +29,36 @@
       "message": "send",
       "author": "Mike",
       "id": 8
+    },
+    {
+      "message": "test",
+      "author": "Mike",
+      "id": 9
+    },
+    {
+      "message": "foo",
+      "author": "Mike",
+      "id": 10
+    },
+    {
+      "message": "test",
+      "author": "Mike",
+      "id": 11
+    },
+    {
+      "message": "test",
+      "author": "Mike",
+      "id": 12
+    },
+    {
+      "message": "hallo",
+      "author": "Mike",
+      "id": 13
+    },
+    {
+      "message": "test",
+      "author": "Mike",
+      "id": 14
     }
   ],
   "users": [

@@ -1,4 +1,4 @@
-import React, { FormEventHandler } from 'react';
+import React from 'react';
 
 export interface OnChatMessageSendTriggered {
     (message: string): void;
@@ -39,14 +39,19 @@ export default class ChatInput extends React.Component<ChatInputProps, ChatInput
         return (<div className="chatInput container">
             <form onSubmit={this.onSubmit} noValidate>
                 <div className="form-row">
-                    <input  type="text" 
-                            name="message" 
-                            id="message"
-                            value={this.state.message} 
-                            onChange={this.onMessageChange}
-                            required 
-                            placeholder="Input message" />
-                    <button disabled={!this.state.buttonEnabled}>Post</button>
+                        <div className="col col-10">
+                            <input  type="text" 
+                                    name="message" 
+                                    id="message"
+                                    className="form-control"
+                                    value={this.state.message} 
+                                    onChange={this.onMessageChange}
+                                    required 
+                                    placeholder="Input message" />
+                        </div>
+                        <div className="col col-2">
+                            <button className="btn btn-primary" disabled={!this.state.buttonEnabled}>Post</button>
+                        </div>
                 </div>
             </form>
         </div>);
