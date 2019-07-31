@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { Chat } from './Chat/Chat';
 import { Users } from './Users/Users';
-import { Geschwindigkeitsanzeige, VType } from '../Geschwindigkeitsanzeige';
 
 const App: React.FC = () => {
-
-  const [type, setType]: [ VType, Function ] = useState('boden');
 
   return (
     <div className="App">
@@ -20,15 +17,6 @@ const App: React.FC = () => {
           </div>
         </div>
       </div>
-      <button onClick={() => {
-        if (type === 'boden') {
-          setType('luft');
-        } else {
-          setType('boden');
-        }
-      }}>
-        Toggle {type}
-      </button>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import ChatOutput from './ChatOutput/ChatOutput';
 import { ChatMessageEntity } from '../../../domain/chat/ChatMessageEntity';
 import chatMessageService, { Subscription, OnChatMessagesUpdated } from '../../../domain/chat/ChatMessageService';
+import ChatInput, { OnChatMessageSendTriggered } from './ChatInput/ChatInput';
 
 export interface ChatProps {
 
@@ -39,6 +40,15 @@ export class Chat extends React.Component<ChatProps, ChatState> {
         chatMessageService.unsubscribe(this.state.subscription!);
     };
 
+    onChatMessageSendTriggered: OnChatMessageSendTriggered = (message: string) => {
+        chatMessageService.sendChatMessage({
+            message,
+            author: 'Mike'
+        }).then((data) => {
+            console.log('Message sent successfully, got: ', data);
+        });
+    };
+
     render() {
         return (<div className="chat container">
             <h2>Chat</h2>
@@ -46,7 +56,7 @@ export class Chat extends React.Component<ChatProps, ChatState> {
                 <ChatOutput chatMessages={this.state.chatMessages} />
             </div>
             <div className="row">
-                TODO
+                <ChatInput onChatMessageSendTriggered={this.onChatMessageSendTriggered} />
             </div>
         </div>);
     }

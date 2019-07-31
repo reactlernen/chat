@@ -21,7 +21,7 @@ class ChatMessageService {
     }
 
     subscribe(onChatMessagesUpdated: OnChatMessagesUpdated): Subscription {
-        return setTimeout(() => {
+        return setInterval(() => {
             this.findAll().then((messages) => {
                 onChatMessagesUpdated(messages);
             })
@@ -29,7 +29,11 @@ class ChatMessageService {
     }
 
     unsubscribe(subscription: Subscription): void {
-        clearTimeout(subscription);
+        clearInterval(subscription);
+    }
+
+    sendChatMessage(message: ChatMessageEntity): Promise<void> {
+        return api.chatMessages.sendMessage(message);
     }
 
 }

@@ -1,7 +1,7 @@
 import { ChatMessages } from "./ChatMessages/ChatMessages";
 import { Users } from "./Users/Users";
 
-const baseUrl = 'http://localhost:3000';
+const baseUrl = 'http://localhost:4000';
 
 class Api {
 
